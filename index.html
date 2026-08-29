@@ -1,0 +1,516 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>A Perfect Day</title>
+
+<style>
+    :root {
+        --paper: #f4efe7;
+        --ink: #292621;
+        --muted: #756f66;
+        --accent: #9b6754;
+        --line: #d8d0c4;
+        --card: #ebe3d7;
+    }
+
+    * {
+        box-sizing: border-box;
+    }
+
+    body {
+        margin: 0;
+        background: var(--paper);
+        color: var(--ink);
+        font-family: Georgia, "Times New Roman", serif;
+        line-height: 1.6;
+        overflow-x: hidden;
+    }
+
+    header {
+        max-width: 1100px;
+        margin: 0 auto;
+        padding: 90px 7vw 70px;
+        border-bottom: 1px solid var(--line);
+    }
+
+    .eyebrow {
+        margin: 0 0 18px;
+        font-family: Arial, sans-serif;
+        font-size: 12px;
+        letter-spacing: 2px;
+        text-transform: uppercase;
+        color: var(--accent);
+    }
+
+    h1 {
+        max-width: 700px;
+        margin: 0;
+        font-size: clamp(54px, 9vw, 110px);
+        font-weight: 400;
+        line-height: 0.95;
+        letter-spacing: -5px;
+    }
+
+    .intro {
+        max-width: 500px;
+        margin: 32px 0 0 auto;
+        font-size: 19px;
+        color: var(--muted);
+    }
+
+    main {
+        max-width: 1100px;
+        margin: auto;
+        padding: 80px 7vw;
+    }
+
+    .day {
+        display: grid;
+        grid-template-columns: 180px 1fr;
+        border-top: 1px solid var(--line);
+    }
+
+    .day > time {
+        padding: 30px 20px 30px 0;
+        font-family: Arial, sans-serif;
+        font-size: 13px;
+        letter-spacing: 1px;
+        color: var(--accent);
+    }
+
+    .entry {
+        display: grid;
+        grid-template-columns: 100px 1fr;
+        gap: 30px;
+        padding: 30px 0;
+        border-bottom: 1px solid var(--line);
+    }
+
+    .number {
+        font-family: Arial, sans-serif;
+        font-size: 12px;
+        color: var(--muted);
+    }
+
+    .entry h2 {
+        margin: 0 0 8px;
+        font-size: 30px;
+        font-weight: 400;
+    }
+
+    .entry p {
+        max-width: 560px;
+        margin: 0;
+        color: var(--muted);
+        font-size: 16px;
+    }
+
+    .note {
+        margin: 90px 0;
+        margin-left: 25%;
+        padding: 35px;
+        max-width: 600px;
+        background: var(--card);
+    }
+
+    .note p {
+        margin: 0;
+        font-size: 25px;
+        line-height: 1.35;
+    }
+
+    .small-list {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 25px;
+        margin-top: 70px;
+    }
+
+    .small-list article {
+        padding-top: 20px;
+        border-top: 2px solid var(--accent);
+    }
+
+    .small-list h3 {
+        margin: 0 0 8px;
+        font-size: 19px;
+        font-weight: 400;
+    }
+
+    .small-list p {
+        margin: 0;
+        font-size: 14px;
+        color: var(--muted);
+    }
+
+    /* Magic button */
+    .magic-box {
+        text-align: center;
+        margin: 100px auto 20px;
+        padding: 45px 25px;
+        border-top: 1px solid var(--line);
+    }
+
+    .magic-box h2 {
+        font-size: 32px;
+        font-weight: 400;
+        margin: 0 0 10px;
+    }
+
+    .magic-box p {
+        color: var(--muted);
+    }
+
+    .magic-button {
+        margin-top: 15px;
+        padding: 14px 28px;
+        border: 1px solid var(--accent);
+        background: transparent;
+        color: var(--accent);
+        font-family: Georgia, serif;
+        font-size: 16px;
+        cursor: pointer;
+        transition: 0.3s;
+    }
+
+    .magic-button:hover {
+        background: var(--accent);
+        color: white;
+    }
+
+    #magicMessage {
+        min-height: 25px;
+        margin-top: 18px;
+        color: var(--accent);
+    }
+
+    /* Flowers and confetti created by JavaScript */
+    .magic-flower,
+    .confetti {
+        position: fixed;
+        top: -40px;
+        pointer-events: none;
+        z-index: 100;
+        animation: fall 4s linear forwards;
+    }
+
+    .magic-flower {
+        font-size: 25px;
+    }
+
+    .confetti {
+        width: 9px;
+        height: 13px;
+    }
+
+    @keyframes fall {
+        0% {
+            transform: translateY(0) rotate(0deg);
+            opacity: 1;
+        }
+
+        100% {
+            transform: translateY(110vh) rotate(720deg);
+            opacity: 0;
+        }
+    }
+
+    footer {
+        max-width: 1100px;
+        margin: auto;
+        padding: 50px 7vw 70px;
+        border-top: 1px solid var(--line);
+        color: var(--muted);
+        font-size: 14px;
+    }
+
+    @media (max-width: 700px) {
+        header {
+            padding-top: 60px;
+        }
+
+        h1 {
+            letter-spacing: -3px;
+        }
+
+        .intro {
+            margin-left: 0;
+        }
+
+        .day {
+            grid-template-columns: 1fr;
+        }
+
+        .day > time {
+            padding-bottom: 0;
+        }
+
+        .entry {
+            grid-template-columns: 1fr;
+            gap: 8px;
+        }
+
+        .note {
+            margin-left: 0;
+            margin-top: 60px;
+        }
+
+        .small-list {
+            grid-template-columns: 1fr;
+        }
+    }
+</style>
+
+</head>
+
+<body>
+
+<header>
+    <p class="eyebrow">A small plan for a very good day</p>
+
+    <h1>A Perfect<br>Day</h1>
+
+    <p class="intro">
+        Nothing too dramatic. Good food, somewhere beautiful,
+        people I actually like, and enough time to enjoy it all.
+    </p>
+</header>
+
+<main>
+
+    <section aria-label="My perfect day">
+
+        <div class="day">
+            <time datetime="09:00">09:00</time>
+
+            <article class="entry">
+                <span class="number">01</span>
+
+                <div>
+                    <h2>A slow start</h2>
+                    <p>
+                        No alarm screaming at me. Just breakfast,
+                        a sunny window and a few extra minutes in bed.
+                        Honestly, the important part of the day.
+                    </p>
+                </div>
+            </article>
+        </div>
+
+        <div class="day">
+            <time datetime="11:30">11:30</time>
+
+            <article class="entry">
+                <span class="number">02</span>
+
+                <div>
+                    <h2>Out we go</h2>
+                    <p>
+                        A little road trip with my family, music playing,
+                        windows open and absolutely no one asking,
+                        “Are we there yet?” Hopefully.
+                    </p>
+                </div>
+            </article>
+        </div>
+
+        <div class="day">
+            <time datetime="13:00">13:00</time>
+
+            <article class="entry">
+                <span class="number">03</span>
+
+                <div>
+                    <h2>Somewhere green</h2>
+                    <p>
+                        I would spend the afternoon somewhere peaceful
+                        with trees, mountains or a really good view.
+                        Definitely taking too many pictures.
+                    </p>
+                </div>
+            </article>
+        </div>
+
+        <div class="day">
+            <time datetime="16:00">16:00</time>
+
+            <article class="entry">
+                <span class="number">04</span>
+
+                <div>
+                    <h2>Food fixes everything</h2>
+                    <p>
+                        Pizza, cold drinks and a table full of people
+                        talking over each other. The kind of meal
+                        that somehow lasts for two hours.
+                    </p>
+                </div>
+            </article>
+        </div>
+
+        <div class="day">
+            <time datetime="18:30">18:30</time>
+
+            <article class="entry">
+                <span class="number">05</span>
+
+                <div>
+                    <h2>Golden hour</h2>
+                    <p>
+                        Find a quiet spot, watch the sky change colour
+                        and take one photo that I will probably keep
+                        looking at for the next five years.
+                    </p>
+                </div>
+            </article>
+        </div>
+
+        <div class="day">
+            <time datetime="21:00">21:00</time>
+
+            <article class="entry">
+                <span class="number">06</span>
+
+                <div>
+                    <h2>End it well</h2>
+                    <p>
+                        A favourite movie, something sweet to eat,
+                        comfortable clothes and absolutely no homework
+                        waiting for me.
+                    </p>
+                </div>
+            </article>
+        </div>
+
+    </section>
+
+    <aside class="note">
+        <p>
+            “Maybe a perfect day isn't a day where everything
+            goes right. Maybe it's just a day you don't want
+            to end.”
+        </p>
+    </aside>
+
+    <section class="small-list" aria-label="Little things that make the day">
+
+        <article>
+            <h3>Favourite flower</h3>
+            <p>A lily — simple, pretty and impossible not to notice.</p>
+        </article>
+
+        <article>
+            <h3>Favourite animal</h3>
+            <p>A tiger. Beautiful, powerful and slightly terrifying.</p>
+        </article>
+
+        <article>
+            <h3>Must-have</h3>
+            <p>Good company. Everything is better when you have someone to laugh with.</p>
+        </article>
+
+    </section>
+
+    <!-- Magic Button -->
+    <section class="magic-box">
+
+        <h2>A Little Bit of Magic ✦</h2>
+
+        <p>
+            I saved something special for the end.
+        </p>
+
+        <button class="magic-button" onclick="makeMagic()">
+            ✨ Click for Magic
+        </button>
+
+        <p id="magicMessage"></p>
+
+    </section>
+
+</main>
+
+<footer>
+    Made by Zainab · 2026
+</footer>
+
+
+<script>
+
+    function makeMagic() {
+
+        document.getElementById("magicMessage").textContent =
+            "The day just got a little more magical! 🌷✨";
+
+        var colors = [
+            "#d98aaa",
+            "#9a78b5",
+            "#78aebd",
+            "#d6ad62",
+            "#c98298"
+        ];
+
+        /* Confetti */
+        for (var i = 0; i < 100; i++) {
+
+            var confetti = document.createElement("span");
+
+            confetti.className = "confetti";
+
+            confetti.style.left =
+                Math.random() * 100 + "vw";
+
+            confetti.style.backgroundColor =
+                colors[Math.floor(Math.random() * colors.length)];
+
+            confetti.style.animationDuration =
+                (2.5 + Math.random() * 2) + "s";
+
+            confetti.style.animationDelay =
+                Math.random() * 0.7 + "s";
+
+            document.body.appendChild(confetti);
+
+            setTimeout(function() {
+                confetti.remove();
+            }, 5000);
+        }
+
+
+        /* Falling flowers */
+        var flowers = ["🌸", "🌷", "🌼", "✿", "❀"];
+
+        for (var j = 0; j < 35; j++) {
+
+            var flower = document.createElement("span");
+
+            flower.className = "magic-flower";
+
+            flower.textContent =
+                flowers[Math.floor(Math.random() * flowers.length)];
+
+            flower.style.left =
+                Math.random() * 100 + "vw";
+
+            flower.style.animationDuration =
+                (3 + Math.random() * 3) + "s";
+
+            flower.style.animationDelay =
+                Math.random() * 1 + "s";
+
+            document.body.appendChild(flower);
+
+            setTimeout(function() {
+                flower.remove();
+            }, 6500);
+        }
+    }
+
+</script>
+
+</body>
+</html>
